@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Phantom Wallet Connect</title>
+</head>
+<body>
+  <button id="connectButton">Connect Phantom Wallet</button>
+
+  <script>
+    const connectButton = document.getElementById('connectButton');
+
+    connectButton.addEventListener('click', async () => {
+      try {
+        const provider = window.solana;
+
+        if (!provider?.isPhantom) {
+          alert("Please install Phantom Wallet!");
+          window.open("https://phantom.app", "_blank");
+          return;
+        }
+
+        const resp = await provider.connect();
+        console.log("Connected with Public Key:", resp.publicKey.toString());
+        alert(`Connected with wallet: ${resp.publicKey.toString()}`);
+        // You can redirect or store this address as needed
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
+
